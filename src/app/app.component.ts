@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
+import {VideoDetail} from './youtube/video-details.model';
+import {YoutubeSearchService} from './services/youtube-search.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Angular-Search-Box-example';
+  results: VideoDetail[];
+  loading: boolean;
+  message = '';
+  nbrevedeo = 10;
+
+  constructor(private youtube: YoutubeSearchService) {
+  }
+
+  updateResults(results: VideoDetail[]): void {
+    this.results = results;
+    if (this.results.length === 0) {
+      this.message = 'Not found...';
+    } else {
+      this.message = 'Top 10 results:';
+    }
+  }
+
+
 }
